@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" class="header" [dir]="libraryService.dir">
+  <mat-toolbar-row class="header__row header__row--first mat-elevation-z6">
+    <a class="header__logo mat-headline global-link--primary"
+       [routerLink]="'/' + translate.currentLang">{{ title$ | async }}</a>
+    <div class="header__spacer-1"></div>
+    <app-library-menu [libraryMenuItems]="menuItems$ | async"
+                   *ngIf="isDesktop$ | async"></app-library-menu>
+    <div class="header__spacer-2"></div>
+    <app-language-menu [langs]="libraryLangs$ | async"></app-language-menu>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="header__row header__row--second mat-elevation-z1"
+                   appSimpleBar
+                   *ngIf="!(isDesktop$ | async)">
+    <app-sub-menu [subMenuItems]="menuItems$ | async"></app-sub-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="library__content">
+  <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>
+<app-loading *ngIf="isLoading$ | async"
+             [appInterfaceDisabled]="true"></app-loading>

@@ -5,7 +5,11 @@
   "projects": {
     "library": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -24,9 +28,17 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/normalize.css/normalize.css",
+              "src/styles.scss"
             ],
-            "scripts": []
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/theme/styling"
+              ]
+            },
+            "scripts": [
+              "./node_modules/simplebar/dist/simplebar.js"
+            ]
           },
           "configurations": {
             "production": {

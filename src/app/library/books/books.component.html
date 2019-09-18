@@ -1,0 +1,5 @@
+<div  [dir]="libraryService.dir"
+      *ngFor="let book of books$ | async">
+  <a (click)="onBookClick(book.id)">{{ book.title }} </a>
+  <p></p>
+</div>

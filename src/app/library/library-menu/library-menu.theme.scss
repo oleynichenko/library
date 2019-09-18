@@ -1,0 +1,17 @@
+@import '../../../../node_modules/@angular/material/theming';
+@import 'variables';
+
+@mixin library-menu-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  .library-menu__line--color:after {
+    background-color: mat-color($primary, default-contrast);
+  }
+}
+
+@mixin library-menu-typography($config) {
+  .library-menu__link {
+    //@include mat-button-typography($library--menu-btn-config);
+    font-size: mat-font-size($config, subheading-2);
+  }
+}
