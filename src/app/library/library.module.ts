@@ -11,6 +11,7 @@ import {LibraryMenuComponent} from './library-menu/library-menu.component';
 import {BooksComponent} from './books/books.component';
 import {PageComponent} from './page/page.component';
 import {LibraryService} from './library.service';
+import {LanguageMenuService} from './language-menu/language-menu.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,6 @@ import {LibraryService} from './library.service';
     SharedModule,
     AppRoutingModule,
   ],
-  providers: [LibraryService]
+  providers: [LibraryService, LanguageMenuService]
 })
 export class LibraryModule { }

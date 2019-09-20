@@ -3,9 +3,9 @@
 </button>
 <mat-menu #menu="matMenu">
   <button mat-menu-item
-          (click)="changeLanguage(item.langId)"
-          *ngFor="let item of langMenu">
-    <mat-icon *ngIf="item.langId === currentLang">check</mat-icon>
+          (click)="onLangMenuItemClick(item.langId)"
+          *ngFor="let item of langMenu$ | async">
+    <mat-icon *ngIf="item.langId === translate.currentLang">check</mat-icon>
     {{item.name}}
   </button>
 </mat-menu>

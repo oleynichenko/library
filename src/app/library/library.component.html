@@ -6,7 +6,7 @@
     <app-library-menu [libraryMenuItems]="menuItems$ | async"
                    *ngIf="isDesktop$ | async"></app-library-menu>
     <div class="header__spacer-2"></div>
-    <app-language-menu [langs]="libraryLangs$ | async"></app-language-menu>
+    <app-language-menu></app-language-menu>
   </mat-toolbar-row>
   <mat-toolbar-row class="header__row header__row--second mat-elevation-z1"
                    appSimpleBar

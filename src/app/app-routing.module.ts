@@ -14,6 +14,7 @@ import {RoutesNames} from './app.model';
 const routes: Routes = [
   {path: '', redirectTo: `${AppConfig.defaultLang}`, pathMatch: 'full'},
   {path: RoutesNames.ERROR, component: ErrorComponent},
+
   {path: ':lang',
     component: LibraryComponent,
     canActivate: [LangGuardService],

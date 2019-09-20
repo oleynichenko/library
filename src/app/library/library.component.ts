@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import {Observable, Subscription} from 'rxjs';
 import {
   BreakpointObserver,
@@ -25,7 +25,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
   libraryLangs$: Observable<string[]>;
 
   isDesktop$: Observable<boolean>;
-  paramsSubscription: Subscription;
+  trSubscription: Subscription;
 
   constructor(private translate: TranslateService,
               private route: ActivatedRoute,
@@ -40,29 +40,20 @@ export class LibraryComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const lang = this.route.snapshot.params.lang;
 
+    this.translate.setDefaultLang(lang);
     this.libraryService.setDirection(lang);
-    this.translate.setDefaultLang(this.config.defaultLang);
-    this.translate.use(lang);
+    this.libraryService.changeTypography(lang);
+
+    this.trSubscription = this.translate.onLangChange
+      .subscribe((event: LangChangeEvent) => {
+        this.libraryService.setDirection(event.lang);
+        this.libraryService.changeTypography(event.lang);
+      });
 
     this.isLoading$ = this.libraryService.loadingStatus.pipe(
       debounceTime(300)
     );
 
-    this.paramsSubscription = this.route.params
-      .subscribe((params: Params) => {
-        this.translate.use(params.lang);
-        this.libraryService.setDirection(params.lang);
-        this.libraryService.changeTypography(params.lang);
-      });
-
-    // this.libraryService.libraryData.subscribe(
-    //   (data) => {
-    //     console.log(data);
-    //     this.title = data.title;
-    //     this.menuItems = data.menu;
-    //     this.libraryLangs = data.langs;
-    //   }
-    // );
     this.title$ = this.libraryService.libraryData
       .pipe(map((data => data.title)));
 
@@ -79,6 +70,6 @@ export class LibraryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.paramsSubscription.unsubscribe();
+    this.trSubscription.unsubscribe();
   }
 }

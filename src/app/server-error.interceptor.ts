@@ -6,7 +6,6 @@ import {Router} from '@angular/router';
 
 import {ErrorData, RoutesNames, ServerError} from './app.model';
 
-
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
